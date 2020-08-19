@@ -1,4 +1,6 @@
-BBS RSS Tech Feed --- приложение для просмотра новостей в формате RSS, написанное на Java под Android.
+# BBS RSS Tech Feed
+
+BBS RSS Tech Feed -- приложение для просмотра новостей в формате RSS, написанное на Java под Android.
 
 ## Описание
 
