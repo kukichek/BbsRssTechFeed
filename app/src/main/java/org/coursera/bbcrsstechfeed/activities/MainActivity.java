@@ -1,4 +1,4 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.coursera.bbcrsstechfeed.item.parser.DOMUtils;
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.R;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;

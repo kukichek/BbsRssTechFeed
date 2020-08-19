@@ -1,4 +1,4 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.item;
 
 import android.os.Parcel;
 import android.os.Parcelable;

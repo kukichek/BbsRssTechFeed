@@ -1,4 +1,4 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.R;
+
 import java.util.ArrayList;
 
-public abstract class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemsViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemsViewHolder> {
     private ArrayList<Item> items;
     private View.OnClickListener seeArticleClickListener;
     private View.OnClickListener chooseArticleClickListener;
 
-    NewsAdapter(
+    public NewsAdapter(
             ArrayList<Item> items,
             View.OnClickListener seeArticleClickListener,
             View.OnClickListener chooseArticleClickListener) {

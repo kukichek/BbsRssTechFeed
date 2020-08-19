@@ -1,57 +1,47 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.adapters.LatestNewsAdapter;
+import org.coursera.bbcrsstechfeed.R;
 import org.coursera.bbcrsstechfeed.data.ItemDbHelper;
 import org.coursera.bbcrsstechfeed.data.ItemsContract;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-public class LatestNewsActivity extends AppCompatActivity {
+public class LatestNewsActivity extends NewsActivity {
     public static final String extrasItems = "NEWS_ITEMS";
 
     private SQLiteOpenHelper itemsDbHelper;
-    private RecyclerView itemsView;
-    private ArrayList<Item> items;
     private boolean[] isSelectedItem;
     private Set<String> linksSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_view);
 
         items = getIntent().getParcelableArrayListExtra(extrasItems);
         isSelectedItem = new boolean[items.size()];
 
-        itemsView = (RecyclerView) findViewById(R.id.itemsView);
-        itemsView.setHasFixedSize(true);
-        itemsView.setLayoutManager(new LinearLayoutManager(this));
-        itemsView.setAdapter(
-                new LatestNewsAdapter(
-                        items,
-                        isSelectedItem,
-                        new SeeArticleClickListener(),
-                        new ChooseFavArticleClickListener()));
+        setRecyclerView(new LatestNewsAdapter(
+                items,
+                isSelectedItem,
+                new SeeArticleClickListener(),
+                new ChooseFavArticleClickListener()));
 
         itemsDbHelper = new ItemDbHelper(this);
         GetDbItemsLinksTask task = new GetDbItemsLinksTask();
@@ -80,16 +70,6 @@ public class LatestNewsActivity extends AppCompatActivity {
 //        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 //        toast.show();
 //    }
-
-    public class SeeArticleClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            int itemIndex = itemsView.getChildLayoutPosition((View) v.getParent().getParent().getParent());
-
-            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(items.get(itemIndex).getLink()));
-            startActivity(intent);
-        }
-    }
 
     public class ChooseFavArticleClickListener implements View.OnClickListener {
         @Override

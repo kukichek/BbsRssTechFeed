@@ -1,5 +1,6 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.item.parser;
 
+import org.coursera.bbcrsstechfeed.item.Item;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

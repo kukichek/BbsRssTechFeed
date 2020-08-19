@@ -1,16 +1,19 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.adapters;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.R;
+
 import java.util.ArrayList;
 
 public class LatestNewsAdapter extends NewsAdapter {
     private boolean[] isSelectedItem;
 
-    LatestNewsAdapter(
+    public LatestNewsAdapter(
             ArrayList<Item> items,
             boolean[] isSelectedItem,
             View.OnClickListener seeArticleClickListener,

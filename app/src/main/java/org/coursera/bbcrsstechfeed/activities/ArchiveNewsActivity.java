@@ -1,28 +1,26 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.adapters.NewsAdapter;
+import org.coursera.bbcrsstechfeed.R;
 import org.coursera.bbcrsstechfeed.data.ItemDbHelper;
 import org.coursera.bbcrsstechfeed.data.ItemsContract;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ArchiveNewsActivity extends AppCompatActivity {
+public class ArchiveNewsActivity extends NewsActivity {
     private SQLiteOpenHelper itemsDbHelper;
-    private ArrayList<Item> items;
-    private RecyclerView itemsView;
+    private NewsAdapter newsAdapter;
+    private List<String> linksToDelete = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +37,29 @@ public class ArchiveNewsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        itemsView = (RecyclerView) findViewById(R.id.itemsView);
-        itemsView.setHasFixedSize(true);
-        itemsView.setLayoutManager(new LinearLayoutManager(this));
-        itemsView.setAdapter(
-                new ArchiveNewsAdapter(
-                        items,
-                        new ArchiveNewsActivity.SeeArticleClickListener(),
-                        new ArchiveNewsActivity.DeleteItemClickListener()));
+        newsAdapter = new NewsAdapter(
+                items,
+                new SeeArticleClickListener(),
+                new DeleteItemClickListener());
+        setRecyclerView(newsAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        DeleteItemsDbTask task = new DeleteItemsDbTask(linksToDelete);
+        task.execute(itemsDbHelper);
+    }
+
+    public class DeleteItemClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int itemIndex = itemsView.getChildLayoutPosition((View) v.getParent().getParent().getParent());
+            linksToDelete.add(items.get(itemIndex).getLink());
+            items.remove(itemIndex);
+            newsAdapter.notifyItemRemoved(itemIndex);
+        }
     }
 
     private static class GetDbItemsTask extends AsyncTask<SQLiteOpenHelper, Void, ArrayList<Item>> {
@@ -82,21 +95,23 @@ public class ArchiveNewsActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: delete doubling method in LatestNewsActivity by extending one superclass
-    public class SeeArticleClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            int itemIndex = itemsView.getChildLayoutPosition((View) v.getParent().getParent().getParent());
+    private static class DeleteItemsDbTask extends AsyncTask<SQLiteOpenHelper, Void, Void> {
+        private List<String> linksToDelete;
 
-            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(items.get(itemIndex).getLink()));
-            startActivity(intent);
+        public DeleteItemsDbTask(List<String> linksToDelete) {
+            this.linksToDelete = linksToDelete;
         }
-    }
 
-    public class DeleteItemClickListener implements View.OnClickListener {
         @Override
-        public void onClick(View v) {
-            // TODO: implement deleting
+        protected Void doInBackground(SQLiteOpenHelper... sqLiteOpenHelpers) {
+            SQLiteDatabase db = sqLiteOpenHelpers[0].getWritableDatabase();
+            for (String link : linksToDelete) {
+                db.delete(ItemsContract.ItemEntry.TABLE_NAME, ItemsContract.ItemEntry.COLUMN_LINK + "=?", new String[] {link});
+            }
+
+            linksToDelete.clear();
+
+            return null;
         }
     }
 }

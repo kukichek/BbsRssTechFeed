@@ -1,38 +1,40 @@
-package org.coursera.bbcrsstechfeed;
+package org.coursera.bbcrsstechfeed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import org.coursera.bbcrsstechfeed.item.Item;
+import org.coursera.bbcrsstechfeed.adapters.NewsAdapter;
+import org.coursera.bbcrsstechfeed.R;
+
 import java.util.ArrayList;
 
 public class NewsActivity extends AppCompatActivity {
-    private RecyclerView itemsView;
-    private ArrayList<Item> items;
+    protected RecyclerView itemsView;
+    protected ArrayList<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_view);
-
-//        itemsView = (RecyclerView) findViewById(R.id.itemsView);
-//        itemsView.setHasFixedSize(true);
-//        itemsView.setLayoutManager(new LinearLayoutManager(this));
-//        itemsView.setAdapter(
-//                new ItemsAdapter(
-//                        items,
-//                        isSelectedItem,
-//                        new SeeArticleClickListener(),
-//                        new ChooseFavArticleClickListener()));
-
     }
+
 //    private void showToast(String text) {
 //        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 //        toast.show();
 //    }
+
+    protected void setRecyclerView(NewsAdapter adapter) {
+        itemsView = (RecyclerView) findViewById(R.id.itemsView);
+        itemsView.setLayoutManager(new LinearLayoutManager(this));
+        itemsView.setAdapter(adapter);
+    }
 
     public class SeeArticleClickListener implements View.OnClickListener {
         @Override
