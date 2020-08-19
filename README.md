@@ -9,5 +9,5 @@ BBS RSS Tech Feed --- приложение для просмотра новос�
 
 При просмотре последних новостей элемент можно отметить как понравившийся для добавления в архив.
 
-[choosed fav news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/choose_fav_news.png)
-[archive news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/archive_news.png)
+![choosed fav news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/choose_fav_news.png)
+![archive news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/archive_news.png)
