@@ -39,15 +39,12 @@ public class ArchiveNewsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        boolean isSelectedItem[] = new boolean[items.size()]; // TODO: unnecessary parameter
-
         itemsView = (RecyclerView) findViewById(R.id.itemsView);
         itemsView.setHasFixedSize(true);
         itemsView.setLayoutManager(new LinearLayoutManager(this));
         itemsView.setAdapter(
-                new ItemsAdapter(
+                new ArchiveNewsAdapter(
                         items,
-                        isSelectedItem, // TODO: think of unnecessary parameter
                         new ArchiveNewsActivity.SeeArticleClickListener(),
                         new ArchiveNewsActivity.DeleteItemClickListener()));
     }

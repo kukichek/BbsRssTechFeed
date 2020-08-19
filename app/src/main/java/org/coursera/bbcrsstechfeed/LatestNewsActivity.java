@@ -47,7 +47,7 @@ public class LatestNewsActivity extends AppCompatActivity {
         itemsView.setHasFixedSize(true);
         itemsView.setLayoutManager(new LinearLayoutManager(this));
         itemsView.setAdapter(
-                new ItemsAdapter(
+                new LatestNewsAdapter(
                         items,
                         isSelectedItem,
                         new SeeArticleClickListener(),

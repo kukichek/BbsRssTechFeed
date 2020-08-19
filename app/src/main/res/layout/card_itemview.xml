@@ -71,7 +71,7 @@
                 tools:text="Mon, 01 Jan 1970 00:00 GMT" />
 
             <ImageView
-                android:id="@+id/heartImageView"
+                android:id="@+id/chooseImageView"
                 android:layout_width="45dp"
                 android:layout_height="36dp"
                 android:layout_marginEnd="24dp"
