@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BBC RSS TechFeed</string>
+
+    <string name="latestNewsButtonLabel">Watch the latest news</string>
+    <string name="archiveNewsButtonLabel">Go to archive</string>
+
+    <string name="unableToConnectToast">Unable to load news, please, check your internet connection</string>
+</resources>
