@@ -4,8 +4,8 @@ BBS RSS Tech Feed --- приложение для просмотра новос�
 
 Приложение имеет две основные функции: просмотр последних новостей и просмотр новостей, сохраненных в архиве. Новости отображаются в виде списка; при нажатии на элемент списка можно перейти по ссылке на полную статью.
 
-[launch screen](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/launch_activity.png)
-[latest news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/latest_news_activity.png)
+![launch screen](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/launch_activity.png)
+![latest news](https://github.com/kukichek/BbsRssTechFeed/blob/master/resources/latest_news_activity.png)
 
 При просмотре последних новостей элемент можно отметить как понравившийся для добавления в архив.
 
