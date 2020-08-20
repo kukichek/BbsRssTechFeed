@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.DataFormatException;
 
+/**
+ * Class that describes a piece of news
+ */
 public class Item implements Parcelable {
     private String title;
     private String description;

@@ -15,6 +15,9 @@ import org.coursera.bbcrsstechfeed.R;
 
 import java.util.ArrayList;
 
+/**
+ * Base Activity for displaying the list of items via RecyclerView
+ */
 public class NewsActivity extends AppCompatActivity {
     protected RecyclerView itemsView;
     protected ArrayList<Item> items;
@@ -24,11 +27,6 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_view);
     }
-
-//    private void showToast(String text) {
-//        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-//        toast.show();
-//    }
 
     protected void setRecyclerView(NewsAdapter adapter) {
         itemsView = (RecyclerView) findViewById(R.id.itemsView);

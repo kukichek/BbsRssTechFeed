@@ -15,6 +15,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * Utility class for parsing items from InputStream
+ */
 public final class DOMUtils {
     private static final String itemTagString = "item";
     private static final String titleTagString = "title";

@@ -1,5 +1,6 @@
 package org.coursera.bbcrsstechfeed.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +22,11 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * Launcher activity for an app
+ * Displays buttons for viewing latest news and
+ * news from the archive
+ */
 public class MainActivity extends AppCompatActivity {
     private Button latestNewsButton;
     private Button archiveNewsButton;
@@ -36,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         setOnClickListeners();
     }
 
+    /**
+     * Sets onClickListeners to buttons on the activity
+     */
     private void setOnClickListeners() {
         latestNewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,18 +64,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets buttons on the activity enabled or disabled
+     */
     private void setButtonsEnabled(boolean b) {
         latestNewsButton.setEnabled(b);
         archiveNewsButton.setEnabled(b);
     }
 
-    // TODO: name method properly
-    private void showToast() {
+    /**
+     * Shows a toast that an internet connection can't be established
+     */
+    private void showToastUnableConnection() {
         Toast toast = Toast.makeText(this, R.string.unableToConnectToast, Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    /**
+     * Class that attempts to establish an internet connection and get news from the site
+     * <a href="https://feeds.bbci.co.uk/news/technology/rss.xml">https://feeds.bbci.co.uk/news/technology/rss.xml</a>
+     */
     private class GetHttpConnectionTask extends AsyncTask<Void, Void, ArrayList<Item>> {
+        /**
+         * Establishes internet connection and receives news list;
+         * if internet connection can't be established, return null
+         *
+         * @return List of news items if internet connection is established; otherwise null
+         */
         @Override
         protected ArrayList<Item> doInBackground(Void... voids) {
             try {
@@ -78,25 +102,26 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return null;
                 }
-            } catch (IOException e) { // must not be catched, URL is valid
+            } catch (IOException e) { // exception must not be thrown, URL is valid
                 return null;
             }
         }
 
-        // TODO: Добавить нормальную документацию к методам
         /**
-         * @param items - page content, полученное при помощи метода doInBackground
-         *             Если text пуст, то выводит на экран сообщение о неудавшейся попытке соединения;
-         *             иначе создает Activity для отображения текста
+         * Start new LatestNewsActivity if the list of news isn't null;
+         * otherwise shows toast that an internet connection can't be established
+         *
+         * @param items - page content obtained using the doInBackground method
+         *              If the text is empty, then displays a message about a failed connection attempt;
+         *              otherwise an Activity is created to display the text
          */
         @Override
-        protected void onPostExecute(ArrayList<Item> items) {
+        protected void onPostExecute(@Nullable ArrayList<Item> items) {
             if (items == null) {
-                showToast();
+                showToastUnableConnection();
             } else {
-                Intent latestNewsActivityIntent = getLatestNewsStartingIntent();
-
-                latestNewsActivityIntent.putParcelableArrayListExtra(LatestNewsActivity.extrasItems, items);
+                Intent latestNewsActivityIntent = getLatestNewsStartingIntent()
+                        .putParcelableArrayListExtra(LatestNewsActivity.extrasItems, items);
                 startActivity(latestNewsActivityIntent);
             }
 
@@ -104,10 +129,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Create intent for starting LatestNewsActivity
+     */
     private Intent getLatestNewsStartingIntent() {
         return new Intent(this, LatestNewsActivity.class);
     }
 
+    /**
+     * Create intent for starting ArchiveNewsActivity]
+     */
     private Intent getArchiveNewsStartingIntent() {
         return new Intent(this, ArchiveNewsActivity.class);
     }

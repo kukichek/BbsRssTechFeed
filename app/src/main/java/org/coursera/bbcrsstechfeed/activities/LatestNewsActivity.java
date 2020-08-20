@@ -66,11 +66,6 @@ public class LatestNewsActivity extends NewsActivity {
         task.execute(itemsDbHelper);
     }
 
-//    private void showToast(String text) {
-//        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-//        toast.show();
-//    }
-
     public class ChooseFavArticleClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
