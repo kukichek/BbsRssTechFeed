@@ -1,7 +1,7 @@
 # BBS RSS Tech Feed
 
 BBS RSS Tech Feed &mdash; приложение для просмотра новостей в формате RSS, написанное на Java под Android.
-Новости берутся с сайта [BBC](https://feeds.bbci.co.uk/news/technology/rss.xml)
+Новости берутся с сайта [BBC](https://feeds.bbci.co.uk/news/technology/rss.xml).
 
 ## Описание
 
