@@ -10,17 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.coursera.bbcrsstechfeed.item.parser.DOMUtils;
 import org.coursera.bbcrsstechfeed.item.Item;
 import org.coursera.bbcrsstechfeed.R;
-import org.xml.sax.SAXException;
+import org.coursera.bbcrsstechfeed.item.parser.XMLUtils;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.zip.DataFormatException;
 
 /**
  * Launcher activity for an app
@@ -96,12 +98,15 @@ public class MainActivity extends AppCompatActivity {
             try {
                 URL rssFeedUrl = new URL("https://feeds.bbci.co.uk/news/technology/rss.xml");
 
-                try (InputStream in = rssFeedUrl.openStream()) {
-                    return DOMUtils.parseItems(in);
-                } catch (SAXException | ParserConfigurationException | IOException e) {
+                try (InputStream in = rssFeedUrl.openStream();
+                     Reader reader = new BufferedReader(new InputStreamReader(in))) {
+                    return XMLUtils.parseItems(reader);
+                } catch (XmlPullParserException | DataFormatException e) {
                     e.printStackTrace();
                     return null;
                 }
+
+
             } catch (IOException e) { // exception must not be thrown, URL is valid
                 return null;
             }
