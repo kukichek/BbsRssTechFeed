@@ -22,7 +22,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.zip.DataFormatException;
 
 /**
  * Launcher activity for an app
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 try (InputStream in = rssFeedUrl.openStream();
                      Reader reader = new BufferedReader(new InputStreamReader(in))) {
                     return XMLUtils.parseItems(reader);
-                } catch (XmlPullParserException | DataFormatException e) {
+                } catch (XmlPullParserException e) {
                     e.printStackTrace();
                     return null;
                 }

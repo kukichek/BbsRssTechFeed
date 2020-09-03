@@ -86,7 +86,7 @@ public class ArchiveNewsActivity extends NewsActivity {
                         cursor.getString(titleIndex),
                         cursor.getString(descriptIndex),
                         cursor.getString(linkIndex),
-                        cursor.getLong(pubDateIndex)
+                        cursor.getString(pubDateIndex)
                 ));
             }
             cursor.close();

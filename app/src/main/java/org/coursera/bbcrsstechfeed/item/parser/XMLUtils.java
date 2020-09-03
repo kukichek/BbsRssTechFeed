@@ -8,7 +8,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.zip.DataFormatException;
 
 /**
  * Utility class for parsing items from Reader
@@ -25,7 +24,7 @@ public final class XMLUtils {
     private XMLUtils() {
     }
 
-    public static ArrayList<Item> parseItems(Reader reader) throws XmlPullParserException, DataFormatException, IOException {
+    public static ArrayList<Item> parseItems(Reader reader) throws XmlPullParserException, IOException {
         XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
         parser.setInput(reader);
 

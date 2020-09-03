@@ -15,35 +15,23 @@ public class Item implements Parcelable {
     private String title;
     private String description;
     private String link;
-    private Date pubDate;
+    private String pubDate;
 
-    public Item(String title, String description, String link, String pubDateString) throws DataFormatException {
+    public Item(String title, String description, String link, String pubDate) {
         this.title = title;
         this.description = description;
         this.link = link;
-
-        this.pubDate = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
-                .parse(pubDateString, new ParsePosition(0));
-        if (this.pubDate == null) {
-            throw new DataFormatException("Cannot parse string to date");
-        }
-    }
-
-    public Item(String title, String description, String link, long pubDateLong) {
-        this.title = title;
-        this.description = description;
-        this.link = link;
-        this.pubDate = new Date(pubDateLong);
+        this.pubDate = pubDate;
     }
 
     public Item(Parcel source) {
-        String[] data = new String[3];
+        String[] data = new String[4];
         source.readStringArray(data);
 
         this.title = data[0];
         this.description = data[1];
         this.link = data[2];
-        this.pubDate = new Date(source.readLong());
+        this.pubDate = data[3];
     }
 
     public String getTitle() {
@@ -58,7 +46,7 @@ public class Item implements Parcelable {
         return link;
     }
 
-    public Date getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
@@ -69,8 +57,7 @@ public class Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {title, description, link});
-        dest.writeLong(pubDate.getTime());
+        dest.writeStringArray(new String[] {title, description, link, pubDate});
     }
 
     public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {

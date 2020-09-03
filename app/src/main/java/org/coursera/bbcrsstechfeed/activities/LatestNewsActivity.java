@@ -128,7 +128,7 @@ public class LatestNewsActivity extends NewsActivity {
                         values.put(ItemsContract.ItemEntry.COLUMN_TITLE, items.get(i).getTitle());
                         values.put(ItemsContract.ItemEntry.COLUMN_DESCRIPTION, items.get(i).getDescription());
                         values.put(ItemsContract.ItemEntry.COLUMN_LINK, items.get(i).getLink());
-                        values.put(ItemsContract.ItemEntry.COLUMN_PUB_DATE_MS, items.get(i).getPubDate().getTime());
+                        values.put(ItemsContract.ItemEntry.COLUMN_PUB_DATE_MS, items.get(i).getPubDate());
 
                         db.insert(ItemsContract.ItemEntry.TABLE_NAME, null, values);
                         links.add(items.get(i).getLink());
