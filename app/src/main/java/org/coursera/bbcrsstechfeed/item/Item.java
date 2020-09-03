@@ -3,11 +3,6 @@ package org.coursera.bbcrsstechfeed.item;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.zip.DataFormatException;
-
 /**
  * Class that describes a piece of news
  */
